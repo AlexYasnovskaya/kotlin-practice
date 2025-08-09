@@ -1,12 +1,12 @@
 package oop
 
 class ProductCart {
-    var name: String = ""
-    var brand: String = ""
-    var size: Float = 0.0F
-    var price: Int = 0
+    val name: String
+    val brand: String
+    val size: Float
+    val price: Int
 
-    fun init(name: String, brand: String, size: Float, price: Int) {
+    constructor(name: String, brand: String, size: Float, price: Int) {
         this.name = name
         this.brand = brand
         this.size = size
