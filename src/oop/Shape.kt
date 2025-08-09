@@ -1,20 +1,11 @@
 package oop
 
-class Shape {
-    val height: Int
+class Shape(
+    val height: Int,
     val width: Int
+) {
 
-    constructor(height: Int, width: Int) {
-        this.height = height
-        this.width = width
-    }
-
-    constructor(size: Int) {
-        this.height = size
-        this.width = size
-    }
-
-//    constructor(size: Int): this(size, size) вызов другого конструктора
+    constructor(size: Int): this(size, size) // вызов вторичного конструктора
 
     fun draw() {
         repeat(height) {
