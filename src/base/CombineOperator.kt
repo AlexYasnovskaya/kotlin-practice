@@ -1,3 +1,5 @@
+package base
+
 fun main() {
     println("Are u hungry?")
     val isHungry = readln().toBoolean()

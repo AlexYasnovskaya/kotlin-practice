@@ -1,3 +1,5 @@
+package base
+
 fun main() {
     val range = 0..1000 step 2
 

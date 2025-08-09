@@ -1,3 +1,5 @@
+package base
+
 fun main() {
     val expression = readln().split(" ")
     val firstNum = expression[0].toInt()
