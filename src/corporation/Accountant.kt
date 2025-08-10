@@ -1,10 +1,11 @@
 package corporation
 
 import oop.ApplianceCard
+import oop.CodeType
 import oop.FoodCard
 import oop.ProductCard
+import oop.ProductType
 import oop.ShoeCard
-import kotlin.system.exitProcess
 
 class Accountant(name: String, age: Int): Worker(name, age) {
     fun getNameBrandPrice(): List<String> {
@@ -40,23 +41,31 @@ class Accountant(name: String, age: Int): Worker(name, age) {
     }
 
     fun registerProduct() {
-        print("enter the product type. 0 - food, 1 - appliance, 2 - shoe: ")
-        val productType = readln().toInt()
+        val productTypes = ProductType.entries
+        print("enter the product type.")
+        for ((ind, type) in productTypes.withIndex()) {
+            print("$ind - ${type.title}")
+        }
+        val productInd = readln().toInt()
+        val productType = productTypes[productInd]
 
         val product: ProductCard = when (productType) {
-            0 -> createFoodCard()
-            1 -> createApplianceCard()
-            2 -> createShoeCard()
-            else -> ProductCard("", "", 0)
+            ProductType.FOOD -> createFoodCard()
+            ProductType.APPLIANCE -> createApplianceCard()
+            ProductType.SHOE -> createShoeCard()
         }
         product.printInfo()
     }
     override fun work() {
         while (true) {
-            print("\nenter the operation code. 0 - exit, 1 - register new item: ")
+            val codeTypes = CodeType.entries
+            print("\nenter the operation code. 0 - ${codeTypes[0]}, 1 - ${codeTypes[1]}: ")
             val code = readln().toInt()
-            if (code == 0) break
-            else registerProduct()
+            val humanCode = codeTypes[code]
+            when (humanCode) {
+                CodeType.REGISTER -> registerProduct()
+                CodeType.EXIT -> break
+            }
         }
     }
 }
