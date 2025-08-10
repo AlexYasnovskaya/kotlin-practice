@@ -8,6 +8,8 @@ import oop.ProductType
 import oop.ShoeCard
 
 class Accountant(name: String, age: Int): Worker(name, age) {
+    val items = mutableListOf<ProductCard>()
+
     fun getNameBrandPrice(): List<String> {
         print("enter the product name:")
         val productName = readln()
@@ -54,18 +56,26 @@ class Accountant(name: String, age: Int): Worker(name, age) {
             ProductType.APPLIANCE -> createApplianceCard()
             ProductType.SHOE -> createShoeCard()
         }
-        product.printInfo()
+
+        items.add(product)
     }
     override fun work() {
         while (true) {
             val codeTypes = CodeType.entries
-            print("\nenter the operation code. 0 - ${codeTypes[0]}, 1 - ${codeTypes[1]}: ")
+            print("\nenter the operation code. 0 - ${codeTypes[0]}, 1 - ${codeTypes[1]}, 2 - ${codeTypes[2]}: ")
             val code = readln().toInt()
             val humanCode = codeTypes[code]
             when (humanCode) {
                 CodeType.REGISTER -> registerProduct()
                 CodeType.EXIT -> break
+                CodeType.SHOW_ALL_ITEMS -> showAllItems()
             }
+        }
+    }
+
+    fun showAllItems() {
+        for(item in items) {
+            item.printInfo()
         }
     }
 }
