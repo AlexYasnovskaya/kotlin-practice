@@ -10,4 +10,8 @@ class Assistant(
         }
         return type
     }
+
+    override fun work() {
+        println("im bringing coffee to the director")
+    }
 }

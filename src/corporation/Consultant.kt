@@ -19,4 +19,8 @@ class Consultant(
 
         return count
     }
+
+    override fun work() {
+        serveClients()
+    }
 }
