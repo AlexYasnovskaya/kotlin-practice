@@ -1,9 +1,9 @@
-package oop
+package corporation
 
 class Director(
-    val name: String,
-    val age: Int
-) {
+    name: String,
+    age: Int
+): Worker(name, age) {
 
     fun takeCoffee(assistant: Assistant) {
         val drinkName = assistant.bringCoffee()

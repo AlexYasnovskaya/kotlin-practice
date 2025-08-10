@@ -1,4 +1,4 @@
-package oop
+package corporation
 
 fun main() {
     val assistant: Assistant = Assistant("Helen")

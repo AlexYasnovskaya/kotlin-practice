@@ -1,11 +1,11 @@
-package oop
+package corporation
 
 import kotlin.random.Random
 
 class Consultant(
-    val name: String,
-    val age: Int
-) {
+    name: String,
+    age: Int
+): Worker(name, age) {
     fun sayHello() {
         println("hello. im $name.")
         if (age > 0) println("im $age.")
