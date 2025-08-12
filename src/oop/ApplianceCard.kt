@@ -7,7 +7,6 @@ class ApplianceCard(
     val wattage: Int,
 ): ProductCard(name, brand, price, ProductType.APPLIANCE) {
     override fun printInfo() {
-        super.printInfo()
-        print(", wattage: $wattage")
+        print("name: $name, brand: $brand, price: $price, wattage: $wattage, type: $type")
     }
 }

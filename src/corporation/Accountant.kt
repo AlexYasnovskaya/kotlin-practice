@@ -9,8 +9,8 @@ import oop.ShoeCard
 import java.io.File
 
 class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerType.ACCOUNTANT) {
-    val file = File("product_card.txt")
-    val fileEmployees = File("employees.txt")
+    private val file = File("product_card.txt")
+    private val fileEmployees = File("employees.txt")
 
     override fun work() {
         while (true) {
@@ -33,7 +33,7 @@ class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerT
         }
     }
 
-    fun loadAllItems(): MutableList<ProductCard> {
+    private fun loadAllItems(): MutableList<ProductCard> {
         val lines = file.readLines()
         val cards = mutableListOf<ProductCard>()
 
@@ -55,7 +55,7 @@ class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerT
         return cards
     }
 
-    fun showAllItems() {
+    private fun showAllItems() {
         val cards = loadAllItems()
 
         for (card in cards) {
@@ -63,7 +63,7 @@ class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerT
         }
     }
 
-    fun getNameBrandPrice(): List<String> {
+    private fun getNameBrandPrice(): List<String> {
         print("enter the product name:")
         val productName = readln()
         print("enter the product brand:")
@@ -74,7 +74,7 @@ class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerT
         return listOf(productName, productBrand, productPrice)
     }
 
-    fun registerProduct() {
+    private fun registerProduct() {
         val productTypes = ProductType.entries
         print("enter the product type.")
         for ((ind, type) in productTypes.withIndex()) {
@@ -105,7 +105,7 @@ class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerT
         saveProductCardToFile(card)
     }
 
-    fun saveProductCardToFile(card: ProductCard) {
+    private fun saveProductCardToFile(card: ProductCard) {
         file.appendText("${card.name}%${card.brand}%${card.price}%")
 
         when (card) {
@@ -116,7 +116,7 @@ class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerT
         file.appendText("${card.type}\n")
     }
 
-    fun removeProductCard() {
+    private fun removeProductCard() {
         val cards = loadAllItems()
         println("enter card name for removing: ")
         val name = readln()
@@ -134,7 +134,7 @@ class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerT
         }
     }
 
-    fun registerNewEmployee() {
+    private fun registerNewEmployee() {
         val workerTypes = WorkerType.entries
         print("enter the worker type:")
         for ((ind, workerType) in workerTypes.withIndex()) {
@@ -160,7 +160,7 @@ class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerT
         saveAnEmployeeToFile(employee)
     }
 
-    fun loadAllEmployees(): MutableList<Worker> {
+    private fun loadAllEmployees(): MutableList<Worker> {
         val lines = file.readLines()
         val employees = mutableListOf<Worker>()
 
@@ -183,11 +183,11 @@ class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerT
         return employees
     }
 
-    fun saveAnEmployeeToFile(employee: Worker) {
-        file.appendText("${employee.id}%${employee.name}%${employee.age}%${employee.workerType}\n")
+    private fun saveAnEmployeeToFile(employee: Worker) {
+        fileEmployees.appendText("${employee.id}%${employee.name}%${employee.age}%${employee.workerType}\n")
     }
 
-    fun fireAnEmployee() {
+    private fun fireAnEmployee() {
         print("enter id to fire: ")
         val id = readln().toInt()
         val employees = loadAllEmployees()
@@ -198,14 +198,14 @@ class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerT
                 break
             }
         }
-        file.writeText("")
+        fileEmployees.writeText("")
 
         for (employee in employees) {
             saveAnEmployeeToFile(employee)
         }
     }
 
-    fun showAllEmployees() {
+    private fun showAllEmployees() {
         val employees = loadAllEmployees()
 
         for (employee in employees) {
