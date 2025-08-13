@@ -8,9 +8,19 @@ import oop.ProductType
 import oop.ShoeCard
 import java.io.File
 
-class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerType.ACCOUNTANT) {
+class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerType.ACCOUNTANT), Cleaner, Supplier {
     private val file = File("product_card.txt")
     private val fileEmployees = File("employees.txt")
+
+    override fun clean() {
+        print("my position is ${super.workerType.title}. ")
+        super.clean()
+    }
+
+    override fun buyingThings() {
+        print("my position is ${super.workerType.title}. ")
+        super.buyingThings()
+    }
 
     override fun work() {
         while (true) {
@@ -160,8 +170,8 @@ class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerT
         saveAnEmployeeToFile(employee)
     }
 
-    private fun loadAllEmployees(): MutableList<Worker> {
-        val lines = file.readLines()
+    fun loadAllEmployees(): MutableList<Worker> {
+        val lines = fileEmployees.readLines()
         val employees = mutableListOf<Worker>()
 
         if (lines.isEmpty()) return employees

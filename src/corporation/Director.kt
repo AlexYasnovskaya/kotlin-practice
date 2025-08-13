@@ -4,7 +4,7 @@ class Director(
     name: String,
     age: Int,
     id: Int
-): Worker(name, age, id, WorkerType.DIRECTOR) {
+): Worker(name, age, id, WorkerType.DIRECTOR), Supplier {
 
     fun takeCoffee(assistant: Assistant) {
         val drinkName = assistant.bringCoffee()
@@ -14,6 +14,11 @@ class Director(
     fun workConsultant(consultant: Consultant) {
         val count = consultant.serveClients()
         println("${consultant.name} completed servicing $count clients")
+    }
+
+    override fun buyingThings() {
+        print("my position is ${super.workerType.title}. ")
+        super.buyingThings()
     }
 
     override fun work() {
