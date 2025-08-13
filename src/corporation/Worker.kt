@@ -8,7 +8,7 @@ abstract class Worker(
 ) {
     abstract fun work()
 
-    fun printInfo() {
-        println("id: $id, name: $name, age: $age, type: $workerType")
+    override fun toString(): String {
+        return "id: $id, name: $name, age: $age, type: $workerType"
     }
 }
