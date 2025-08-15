@@ -1,13 +1,13 @@
 package oop
 
 fun main() {
-    val john: Person = Person()
     println("Ur name?")
-    john.name = readln()
+    val name = readln()
+    println("ur first name?")
+    val lastName = readln()
     println("Age?")
-    john.age = readln().toInt()
-    println("Name: ${john.name}\nAge: ${john.age}")
-
-    john.sayHello()
-    john.run()
+    val age = readln().toInt()
+    val person = Person(name, 170, 50, lastName)
+    person.age = age
+    println(person.fullName)
 }

@@ -8,7 +8,18 @@ import oop.ProductType
 import oop.ShoeCard
 import java.io.File
 
-class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerType.ACCOUNTANT), Cleaner, Supplier {
+class Accountant(
+    name: String,
+    age: Int,
+    id: Int,
+    salary: Int
+): Worker(
+    name,
+    age,
+    id,
+    salary,
+    WorkerType.ACCOUNTANT
+), Cleaner, Supplier {
     private val file = File("product_card.txt")
     private val fileEmployees = File("employees.txt")
 
@@ -164,12 +175,11 @@ class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerT
         val salary = readln().toInt()
 
         val employee = when(humanType) {
-            WorkerType.ACCOUNTANT -> Accountant(name, age, id)
-            WorkerType.DIRECTOR -> Director(name, age, id)
-            WorkerType.CONSULTANT -> Consultant(name, age, id)
-            WorkerType.ASSISTANT -> Assistant(name, age, id)
+            WorkerType.ACCOUNTANT -> Accountant(name, age, id, salary)
+            WorkerType.DIRECTOR -> Director(name, age, id, salary)
+            WorkerType.CONSULTANT -> Consultant(name, age, id, salary)
+            WorkerType.ASSISTANT -> Assistant(name, age, id, salary)
         }
-        employee.salary = salary
 
         saveAnEmployeeToFile(employee)
     }
@@ -185,12 +195,11 @@ class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerT
             val workerType = WorkerType.valueOf(type)
 
             val employee = when(workerType) {
-                WorkerType.ACCOUNTANT -> Accountant(name, age.toInt(), id.toInt())
-                WorkerType.DIRECTOR -> Director(name, age.toInt(), id.toInt())
-                WorkerType.CONSULTANT -> Consultant(name, age.toInt(), id.toInt())
-                WorkerType.ASSISTANT -> Assistant(name, age.toInt(), id.toInt())
+                WorkerType.ACCOUNTANT -> Accountant(name, age.toInt(), id.toInt(), salary.toInt())
+                WorkerType.DIRECTOR -> Director(name, age.toInt(), id.toInt(), salary.toInt())
+                WorkerType.CONSULTANT -> Consultant(name, age.toInt(), id.toInt(), salary.toInt())
+                WorkerType.ASSISTANT -> Assistant(name, age.toInt(), id.toInt(), salary.toInt())
             }
-            employee.salary = salary.toInt()
 
             employees.add(employee)
         }
@@ -199,7 +208,7 @@ class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerT
     }
 
     private fun saveAnEmployeeToFile(employee: Worker) {
-        fileEmployees.appendText("${employee.id}%${employee.name}%${employee.age}%${employee.salary}%${employee.workerType}\n")
+        fileEmployees.appendText("${employee.id}%${employee.name}%${employee.age}%${employee.getSalary()}%${employee.workerType}\n")
     }
 
     private fun fireAnEmployee() {
@@ -240,7 +249,7 @@ class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerT
 
         for (employee in employees) {
             if (employee.id == id) {
-                employee.salary = newSalary
+                employee.setSalary(newSalary)
                 break
             }
             saveAnEmployeeToFile(employee)

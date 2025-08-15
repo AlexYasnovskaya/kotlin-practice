@@ -1,7 +1,11 @@
 package oop
 
-class Person {
-    var name: String = ""
+class Person(
+    private val name: String,
+    private val height: Int,
+    private val weight: Int,
+    var lastName: String,
+) {
     var age: Int = 0
         set(value) {
             if (value > field) {
@@ -14,6 +18,9 @@ class Person {
             println("its indecent to ask a person his age")
             return age
         }
+
+    val fullName: String
+        get() = "$lastName $name"
 
     fun sayHello() {
         println("Hello!")

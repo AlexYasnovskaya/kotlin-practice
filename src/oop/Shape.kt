@@ -1,11 +1,18 @@
 package oop
 
 class Shape(
-    val height: Int,
-    val width: Int
+    var height: Int,
+    var width: Int
 ) {
 
-    constructor(size: Int): this(size, size) // вызов вторичного конструктора
+//    constructor(size: Int): this(size, size) // вызов вторичного конструктора
+
+//    val test = 0
+//        private set // запрещаем присваивать переменной что-либо извне, только работа внутри
+
+
+    val area: Int
+        get() = width * height
 
     fun draw() {
         repeat(height) {
