@@ -39,6 +39,7 @@ class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerT
                 CodeType.REGISTER_NEW_EMPLOYEE -> registerNewEmployee()
                 CodeType.FIRE_AN_EMPLOYEE -> fireAnEmployee()
                 CodeType.SHOW_ALL_EMPLOYEES -> showAllEmployees()
+                CodeType.CHANGE_SALARY -> changeSalary()
             }
         }
     }
@@ -159,6 +160,8 @@ class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerT
         val name = readln()
         print("enter age: ")
         val age = readln().toInt()
+        print("enter salary")
+        val salary = readln().toInt()
 
         val employee = when(humanType) {
             WorkerType.ACCOUNTANT -> Accountant(name, age, id)
@@ -166,6 +169,7 @@ class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerT
             WorkerType.CONSULTANT -> Consultant(name, age, id)
             WorkerType.ASSISTANT -> Assistant(name, age, id)
         }
+        employee.salary = salary
 
         saveAnEmployeeToFile(employee)
     }
@@ -177,7 +181,7 @@ class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerT
         if (lines.isEmpty()) return employees
 
         for(line in lines) {
-            val (id, name, age, type) = line.split("%")
+            val (id, name, age, salary, type) = line.split("%")
             val workerType = WorkerType.valueOf(type)
 
             val employee = when(workerType) {
@@ -186,6 +190,7 @@ class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerT
                 WorkerType.CONSULTANT -> Consultant(name, age.toInt(), id.toInt())
                 WorkerType.ASSISTANT -> Assistant(name, age.toInt(), id.toInt())
             }
+            employee.salary = salary.toInt()
 
             employees.add(employee)
         }
@@ -194,7 +199,7 @@ class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerT
     }
 
     private fun saveAnEmployeeToFile(employee: Worker) {
-        fileEmployees.appendText("${employee.id}%${employee.name}%${employee.age}%${employee.workerType}\n")
+        fileEmployees.appendText("${employee.id}%${employee.name}%${employee.age}%${employee.salary}%${employee.workerType}\n")
     }
 
     private fun fireAnEmployee() {
@@ -215,11 +220,30 @@ class Accountant(name: String, age: Int, id: Int): Worker(name, age, id, WorkerT
         }
     }
 
+
     private fun showAllEmployees() {
         val employees = loadAllEmployees()
 
         for (employee in employees) {
             employee.printInfo()
+        }
+    }
+
+    private fun changeSalary() {
+        print("enter id to change salary: ")
+        val id = readln().toInt()
+        print("enter new salary: ")
+        val newSalary = readln().toInt()
+
+        val employees = loadAllEmployees()
+        fileEmployees.writeText("")
+
+        for (employee in employees) {
+            if (employee.id == id) {
+                employee.salary = newSalary
+                break
+            }
+            saveAnEmployeeToFile(employee)
         }
     }
 }
