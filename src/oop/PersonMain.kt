@@ -1,13 +1,12 @@
 package oop
 
 fun main() {
-    println("Ur name?")
-    val name = readln()
-    println("ur first name?")
-    val lastName = readln()
-    println("Age?")
-    val age = readln().toInt()
-    val person = Person(name, 170, 50, lastName)
-    person.age = age
-    println(person.fullName)
+    val person1 = Person("Alex", 170, 54, "Snow")
+    val person2 = Person("Alex", 170, 54, "Snow")
+    val person3 = Person("Mari", 156, 45, "Richter")
+    val setList = mutableSetOf<Person>(person1, person2, person3)
+
+    for (person in setList) {
+        println(person)
+    }
 }

@@ -15,8 +15,6 @@ abstract class Worker(
         return id == other.id
     }
 
-    fun getSalary(): Int = salary
-
     abstract fun work()
 
     fun printInfo() {
@@ -25,5 +23,14 @@ abstract class Worker(
 
     override fun toString(): String {
         return "id: $id, name: $name, age: $age, salary: $salary, type: $workerType"
+    }
+
+    override fun hashCode(): Int {
+        var result = age
+        result = 31 * result + id
+        result = 31 * result + salary
+        result = 31 * result + name.hashCode()
+        result = 31 * result + workerType.hashCode()
+        return result
     }
 }
