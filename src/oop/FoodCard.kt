@@ -1,12 +1,8 @@
 package oop
 
-class FoodCard(
-    name: String,
-    brand: String,
-    price: Int,
+data class FoodCard(
+    override val name: String,
+    override val brand: String,
+    override val price: Int,
     val caloric: Int
-): ProductCard(name, brand, price, ProductType.FOOD) {
-    override fun toString(): String {
-        return "name: $name, brand: $brand, price: $price, caloric: $caloric, type: $type"
-    }
-}
+): ProductCard(name, brand, price, ProductType.FOOD)

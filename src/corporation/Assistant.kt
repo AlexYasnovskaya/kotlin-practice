@@ -1,10 +1,10 @@
 package corporation
 
-class Assistant(
-    name: String,
-    age: Int = 0,
-    id: Int,
-    salary: Int
+data class Assistant(
+    override val name: String,
+    override val age: Int = 0,
+    override val id: Int,
+    override val salary: Int
 ): Worker(name, age, id, salary, WorkerType.ASSISTANT), Cleaner, Supplier {
     fun bringCoffee(count: Int = 1, type: String = "cappuccino"): String {
         repeat(count) {

@@ -6,11 +6,11 @@ import oop.FoodCard
 import oop.ProductType
 import oop.ShoeCard
 
-class Accountant(
-    name: String,
-    age: Int,
-    id: Int,
-    salary: Int
+data class Accountant(
+    override val name: String,
+    override val age: Int,
+    override val id: Int,
+    override val salary: Int
 ): Worker(
     name,
     age,

@@ -13,9 +13,9 @@ object ProductCardRepository {
     val productCards
         get() = _productCards.toList()
 
-    private fun loadAllItems(): MutableList<ProductCard> {
+    private fun loadAllItems(): MutableSet<ProductCard> {
         val lines = file.readLines()
-        val cards = mutableListOf<ProductCard>()
+        val cards = mutableSetOf<ProductCard>()
 
         if (lines.isEmpty()) return cards
 

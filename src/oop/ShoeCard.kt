@@ -1,12 +1,8 @@
 package oop
 
-class ShoeCard(
-    name: String,
-    brand: String,
-    price: Int,
+data class ShoeCard(
+    override val name: String,
+    override val brand: String,
+    override val price: Int,
     val size: Int
-): ProductCard(name, brand, price, ProductType.SHOE) {
-    override fun toString(): String {
-        return "name: $name, brand: $brand, price: $price, size: $size, type: $type"
-    }
-}
+): ProductCard(name, brand, price, ProductType.SHOE)

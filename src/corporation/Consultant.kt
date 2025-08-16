@@ -3,10 +3,10 @@ package corporation
 import kotlin.random.Random
 
 class Consultant(
-    name: String,
-    age: Int,
-    id: Int,
-    salary: Int,
+    override val name: String,
+    override val age: Int,
+    override val id: Int,
+    override val salary: Int,
 ): Worker(name, age, id, salary, WorkerType.CONSULTANT), Cleaner {
     fun sayHello() {
         println("hello. im $name.")
