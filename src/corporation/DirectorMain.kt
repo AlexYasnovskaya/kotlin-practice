@@ -1,6 +1,9 @@
 package corporation
 
 fun main() {
-    val accountant: Accountant = Accountant("Lisa", 20, 3, 15000)
-    println(accountant.work())
+    val workers = WorkerRepository.employees
+    workers.add(Consultant("Joe", 24, 14, 35000))
+    for (worker in workers) {
+        worker.work()
+    }
 }

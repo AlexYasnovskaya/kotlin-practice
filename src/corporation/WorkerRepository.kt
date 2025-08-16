@@ -4,15 +4,17 @@ import java.io.File
 
 object WorkerRepository {
     private val fileEmployees = File("employees.txt")
-    val employees = loadAllEmployees()
+    private val _employees = loadAllEmployees()
+    val employees
+        get() = _employees.toList()
 
     fun registerNewEmployee(employee: Worker) {
-        employees.add(employee)
+        _employees.add(employee)
     }
 
     fun saveChanges() {
         var content = StringBuilder()
-        for (employee in employees) {
+        for (employee in _employees) {
             content.append("${employee.id}%${employee.name}%${employee.age}%${employee.getSalary()}%${employee.workerType}\n")
         }
         fileEmployees.writeText(content.toString())
@@ -42,16 +44,16 @@ object WorkerRepository {
     }
 
     fun fireAnEmployee(id: Int) {
-        for (employee in employees) {
+        for (employee in _employees) {
             if (employee.id == id) {
-                employees.remove(employee)
+                _employees.remove(employee)
                 break
             }
         }
     }
 
     fun changeSalary(id: Int, newSalary: Int) {
-        for (employee in employees) {
+        for (employee in _employees) {
             if (employee.id == id) {
                 employee.setSalary(newSalary)
                 break

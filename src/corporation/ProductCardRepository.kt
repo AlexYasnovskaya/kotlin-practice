@@ -9,7 +9,9 @@ import java.io.File
 
 object ProductCardRepository {
     private val file = File("product_card.txt")
-    val productCards = loadAllItems()
+    private val _productCards = loadAllItems()
+    val productCards
+        get() = _productCards.toList()
 
     private fun loadAllItems(): MutableList<ProductCard> {
         val lines = file.readLines()
@@ -34,12 +36,12 @@ object ProductCardRepository {
     }
 
     fun registerNewProduct(card: ProductCard) {
-        productCards.add(card)
+        _productCards.add(card)
     }
 
     fun saveChanges() {
         var content = StringBuilder()
-        for (card in productCards) {
+        for (card in _productCards) {
             content.append("${card.name}%${card.brand}%${card.price}%")
 
             when (card) {
@@ -54,9 +56,9 @@ object ProductCardRepository {
     }
 
     fun removeProductCard(name: String) {
-        for (card in productCards) {
+        for (card in _productCards) {
             if (card.name == name) {
-                productCards.remove(card)
+                _productCards.remove(card)
                 break
             }
         }
