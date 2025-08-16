@@ -8,8 +8,13 @@ object WorkerRepository {
     val employees
         get() = _employees.toList()
 
-    fun registerNewEmployee(employee: Worker) {
-        _employees.add(employee)
+    fun registerNewEmployee(newEmployee: Worker) {
+        for (employee in _employees) {
+            if (employee == newEmployee) {
+                return
+            }
+        }
+        _employees.add(newEmployee)
     }
 
     fun saveChanges() {

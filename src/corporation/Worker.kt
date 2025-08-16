@@ -9,6 +9,12 @@ abstract class Worker(
 ) {
     abstract fun copy(salary: Int = this.salary, age: Int = this.age): Worker
 
+    override fun equals(other: Any?): Boolean {
+        if (other !is Worker) return false
+
+        return id == other.id
+    }
+
     fun getSalary(): Int = salary
 
     abstract fun work()
