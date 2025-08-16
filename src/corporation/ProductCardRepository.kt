@@ -7,7 +7,7 @@ import oop.ProductType
 import oop.ShoeCard
 import java.io.File
 
-class ProductCardRepository {
+object ProductCardRepository {
     private val file = File("product_card.txt")
     val productCards = loadAllItems()
 

@@ -2,7 +2,7 @@ package corporation
 
 import java.io.File
 
-class WorkerRepository {
+object WorkerRepository {
     private val fileEmployees = File("employees.txt")
     val employees = loadAllEmployees()
 
@@ -11,10 +11,8 @@ class WorkerRepository {
     }
 
     fun saveChanges() {
-        // var content = ""
         var content = StringBuilder()
         for (employee in employees) {
-            // content += "${employee.id}%${employee.name}%${employee.age}%${employee.getSalary()}%${employee.workerType}\n" плохой способ сохранения строк, можно засорить память
             content.append("${employee.id}%${employee.name}%${employee.age}%${employee.getSalary()}%${employee.workerType}\n")
         }
         fileEmployees.writeText(content.toString())

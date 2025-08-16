@@ -18,8 +18,8 @@ class Accountant(
     salary,
     WorkerType.ACCOUNTANT
 ), Cleaner, Supplier {
-    private val workerRepository = WorkerRepository()
-    private val productCardRepository = ProductCardRepository()
+    private val workerRepository = WorkerRepository
+    private val productCardRepository = ProductCardRepository
 
     override fun clean() {
         print("my position is ${super.workerType.title}. ")
