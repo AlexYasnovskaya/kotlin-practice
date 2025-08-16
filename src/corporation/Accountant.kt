@@ -41,7 +41,11 @@ class Accountant(
             val code = readln().toInt()
             val humanCode = codeTypes[code]
             when (humanCode) {
-                CodeType.EXIT -> break
+                CodeType.EXIT -> {
+                    workerRepository.saveChanges()
+                    productCardRepository.saveChanges()
+                    break
+                }
                 CodeType.REGISTER -> registerProduct()
                 CodeType.SHOW_ALL_ITEMS -> showAllItems()
                 CodeType.REMOVE_PRODUCT_CARD -> removeProductCard()
@@ -54,7 +58,7 @@ class Accountant(
     }
 
     private fun showAllItems() {
-        val cards = productCardRepository.loadAllItems()
+        val cards = productCardRepository.productCards
 
         for (card in cards) {
             card.printInfo()
@@ -145,7 +149,7 @@ class Accountant(
 
 
     private fun showAllEmployees() {
-        val employees = workerRepository.loadAllEmployees()
+        val employees = workerRepository.employees
 
         for (employee in employees) {
             employee.printInfo()

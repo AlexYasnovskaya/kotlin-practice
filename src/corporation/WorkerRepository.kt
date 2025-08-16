@@ -4,16 +4,23 @@ import java.io.File
 
 class WorkerRepository {
     private val fileEmployees = File("employees.txt")
+    val employees = loadAllEmployees()
 
     fun registerNewEmployee(employee: Worker) {
-        saveAnEmployeeToFile(employee)
+        employees.add(employee)
     }
 
-    private fun saveAnEmployeeToFile(employee: Worker) {
-        fileEmployees.appendText("${employee.id}%${employee.name}%${employee.age}%${employee.getSalary()}%${employee.workerType}\n")
+    fun saveChanges() {
+        // var content = ""
+        var content = StringBuilder()
+        for (employee in employees) {
+            // content += "${employee.id}%${employee.name}%${employee.age}%${employee.getSalary()}%${employee.workerType}\n" плохой способ сохранения строк, можно засорить память
+            content.append("${employee.id}%${employee.name}%${employee.age}%${employee.getSalary()}%${employee.workerType}\n")
+        }
+        fileEmployees.writeText(content.toString())
     }
 
-    fun loadAllEmployees(): MutableList<Worker> {
+    private fun loadAllEmployees(): MutableList<Worker> {
         val lines = fileEmployees.readLines()
         val employees = mutableListOf<Worker>()
 
@@ -37,26 +44,20 @@ class WorkerRepository {
     }
 
     fun fireAnEmployee(id: Int) {
-        val employees = loadAllEmployees()
-        fileEmployees.writeText("")
-
-        for ((ind, employee) in employees.withIndex()) {
-            if (employee.id != id) {
-                saveAnEmployeeToFile(employee)
+        for (employee in employees) {
+            if (employee.id == id) {
+                employees.remove(employee)
+                break
             }
         }
     }
 
     fun changeSalary(id: Int, newSalary: Int) {
-        val employees = loadAllEmployees()
-        fileEmployees.writeText("")
-
         for (employee in employees) {
             if (employee.id == id) {
                 employee.setSalary(newSalary)
                 break
             }
-            saveAnEmployeeToFile(employee)
         }
     }
 }

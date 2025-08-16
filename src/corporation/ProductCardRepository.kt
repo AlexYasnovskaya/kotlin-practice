@@ -9,8 +9,9 @@ import java.io.File
 
 class ProductCardRepository {
     private val file = File("product_card.txt")
+    val productCards = loadAllItems()
 
-    fun loadAllItems(): MutableList<ProductCard> {
+    private fun loadAllItems(): MutableList<ProductCard> {
         val lines = file.readLines()
         val cards = mutableListOf<ProductCard>()
 
@@ -33,27 +34,30 @@ class ProductCardRepository {
     }
 
     fun registerNewProduct(card: ProductCard) {
-        saveProductCardToFile(card)
+        productCards.add(card)
     }
 
-    private fun saveProductCardToFile(card: ProductCard) {
-        file.appendText("${card.name}%${card.brand}%${card.price}%")
+    fun saveChanges() {
+        var content = StringBuilder()
+        for (card in productCards) {
+            content.append("${card.name}%${card.brand}%${card.price}%")
 
-        when (card) {
-            is FoodCard -> file.appendText("${card.caloric}%")
-            is ApplianceCard -> file.appendText("${card.wattage}%")
-            is ShoeCard -> file.appendText("${card.size}%")
+            when (card) {
+                is FoodCard -> content.append("${card.caloric}%")
+                is ApplianceCard -> content.append("${card.wattage}%")
+                is ShoeCard -> content.append("${card.size}%")
+            }
+            content.append("${card.type}\n")
         }
-        file.appendText("${card.type}\n")
+
+        file.appendText(content.toString())
     }
 
     fun removeProductCard(name: String) {
-        val cards = loadAllItems()
-        file.writeText("")
-
-        for ((ind, card) in cards.withIndex()) {
-            if (card.name != name) {
-                saveProductCardToFile(card)
+        for (card in productCards) {
+            if (card.name == name) {
+                productCards.remove(card)
+                break
             }
         }
     }
