@@ -7,4 +7,8 @@ fun main() {
     if (assistant != null) {
         director?.takeCoffee(assistant)
     }
+
+    val directorSalary = director?.salary ?: 0
+    val assistantSalary = assistant?.salary ?: 0
+    val sum = directorSalary + assistantSalary
 }
