@@ -17,6 +17,10 @@ class Director(
         println("${consultant.name} completed servicing $count clients")
     }
 
+    override fun copy(salary: Int, age: Int): Director {
+        return Director(this.name, age, this.id, salary)
+    }
+
     override fun buyingThings() {
         print("my position is ${super.workerType.title}. ")
         super.buyingThings()

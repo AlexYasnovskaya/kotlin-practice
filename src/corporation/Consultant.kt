@@ -22,6 +22,10 @@ class Consultant(
         return count
     }
 
+    override fun copy(salary: Int, age: Int): Consultant {
+        return Consultant(this.name, age, this.id, salary)
+    }
+
     override fun clean() {
         print("my position is ${super.workerType.title}. ")
         super.clean()

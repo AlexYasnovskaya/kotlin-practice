@@ -13,6 +13,10 @@ class Assistant(
         return type
     }
 
+    override fun copy(salary: Int, age: Int): Assistant {
+        return Assistant(this.name, age, this.id, salary)
+    }
+
     override fun clean() {
         print("my position is ${super.workerType.title}. ")
         super.clean()

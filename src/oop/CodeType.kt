@@ -8,5 +8,6 @@ enum class CodeType(val title: String) {
     REGISTER_NEW_EMPLOYEE("register new employee"),
     FIRE_AN_EMPLOYEE("fire an employee"),
     SHOW_ALL_EMPLOYEES("show all employees"),
-    CHANGE_SALARY("change salary")
+    CHANGE_SALARY("change salary"),
+    CHANGE_AGE("change age"),
 }
