@@ -1,0 +1,42 @@
+package test
+
+import kotlinx.serialization.json.Json
+import java.io.File
+
+fun main() {
+    val file = File("books.json")
+    writeToFile(file)
+    val items = readFromFile(file)
+
+    for (item in items) {
+        println(item)
+    }
+}
+
+fun readFromFile(file: File): List<Book> {
+    val content = file.readText().trim()
+    return Json.decodeFromString<List<Book>>(content)
+}
+
+fun writeToFile(file: File) {
+    val books = mutableListOf<Book>()
+
+    while (true) {
+        println("write title or 0 to exit: ")
+        val name = readln()
+
+        if (name == "0") break
+
+        println("enter author: ")
+        val author = readln()
+
+        println("enter year: ")
+        val year = readln().toInt()
+
+        val item = Book(name, author, year)
+        books.add(item)
+    }
+
+    val itemsAsString = Json.encodeToString(books)
+    file.writeText(itemsAsString)
+}
