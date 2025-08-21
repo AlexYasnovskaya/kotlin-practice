@@ -10,7 +10,7 @@ object ProductRepository {
     val products
         get() = _products.toList()
 
-    private fun loadProducts(): List<Person> {
+    private fun loadProducts(): List<Products> {
         val content = file.readText().trim()
         return Json.decodeFromString(content)
     }
