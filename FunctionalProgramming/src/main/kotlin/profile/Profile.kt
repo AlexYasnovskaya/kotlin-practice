@@ -2,23 +2,33 @@ package profile
 
 fun main() {
     val profiles = ProfilesRepository.profiles
-    var filtered = filter(profiles) { it.age > 25 }
-    filtered = filter(filtered) { it.firstName.startsWith("A") }
-    filtered = filter(filtered) { it.gender == Gender.MALE }
+        .filter { it.age > 25 }
+        .filter { it.firstName.startsWith("A") }
+        .filter { it.gender == Gender.MALE }
+        .filter { it.age < 30 }
+        .transform { it.copy(age = it.age + 1) }
 
-    for (profile in filtered) {
+    for (profile in profiles) {
         println(profile)
     }
 }
 
-fun filter(profiles: List<Person>, isSuitable: (Person) -> Boolean): List<Person> {
+fun List<Person>.filter(isSuitable: (Person) -> Boolean): List<Person> {
     val result = mutableListOf<Person>()
 
-    for (profile in profiles) {
+    for (profile in this) {
         if (isSuitable(profile)) {
             result.add(profile)
         }
     }
 
     return result.toList()
+}
+
+fun <T> List<Person>.transform( operation: (Person) -> T): List<T> {
+    val result = mutableListOf<T>()
+    for (profile in this) {
+        result.add(operation(profile))
+    }
+    return  result
 }
