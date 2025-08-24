@@ -3,6 +3,8 @@ package test
 import kotlinx.serialization.json.Json
 import java.io.File
 
+var age: Int? = 20
+
 fun main() {
 //    val file = File("books.json")
 //    writeToFile(file)
@@ -12,12 +14,20 @@ fun main() {
 //        println(item)
 //    }
 
-    val a = readln().toInt()
-    println(a.isPositive())
+//    val a = readln().toInt()
+//    println(a.isPositive())
+
+    age?.let {
+        if (it >= 18) {
+            "ure an adult"
+        } else {
+            "ull be an adult ${18 - it} years "
+        }
+    }.let(::println)
 }
 
 //fun isPositive(number: Int) = number > 0
-fun Int.isPositive(): Boolean = this > 0 // extension function
+//fun Int.isPositive(): Boolean = this > 0 // extension function
 
 //fun readFromFile(file: File): List<Book> {
 //    val content = file.readText().trim()
