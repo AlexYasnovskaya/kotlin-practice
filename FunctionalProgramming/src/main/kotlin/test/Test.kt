@@ -3,7 +3,7 @@ package test
 import kotlinx.serialization.json.Json
 import java.io.File
 
-var age: Int? = 20
+//var age: Int? = 20
 
 fun main() {
 //    val file = File("books.json")
@@ -17,14 +17,43 @@ fun main() {
 //    val a = readln().toInt()
 //    println(a.isPositive())
 
-    age?.let {
-        if (it >= 18) {
-            "ure an adult"
-        } else {
-            "ull be an adult ${18 - it} years "
-        }
-    }.let(::println)
+//    age?.let {
+//        if (it >= 18) {
+//            "ure an adult"
+//        } else {
+//            "ull be an adult ${18 - it} years "
+//        }
+//    }.let(::println)
+
+
 }
+
+fun exampleWith() {
+    with(mutableListOf<Int>()) {
+            while (true) {
+                println("enter num or 0 to exit: ")
+                val num = readln().toInt().takeIf { it != 0 } ?: break
+                add(num)
+            }
+            println("max: ${max()}")
+            println("max: ${min()}")
+            this
+        }
+        .forEach { println(it) }
+}
+
+// example apply
+//fun extensionApply() {
+//    mutableListOf<Int>()
+//        .apply {
+//            while (true) {
+//                println("enter num or 0 to exit: ")
+//                val num = readln().toInt().takeIf { it != 0 } ?: break
+//                add(num)
+//            }
+//        }
+//        .forEach { println(it) }
+//}
 
 //fun isPositive(number: Int) = number > 0
 //fun Int.isPositive(): Boolean = this > 0 // extension function

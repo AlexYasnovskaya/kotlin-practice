@@ -12,7 +12,7 @@ fun filterUsers() {
         .filter { it.age < 30 }
         .map { it.copy(age = it.age + 1) }
         .sortedBy { it.firstName }
-        .forEach(::println)
+        .forEach(::println) // method reference
 }
 
 fun showEmails() {
