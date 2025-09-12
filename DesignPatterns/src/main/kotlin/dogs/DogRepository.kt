@@ -13,14 +13,20 @@ class DogRepository private constructor(){
     private fun loadDogs(): MutableList<Dog> = Json.decodeFromString(file.readText().trim())
 
     companion object {
+        private val lock = Any()
         private var instance: DogRepository? = null
 
         fun getInstance(password: String): DogRepository {
             val correctPassword = File("password.json").readText().trim()
             if (correctPassword != password) throw IllegalArgumentException("wrong password")
-            if (instance == null) instance = DogRepository()
 
-            return instance!!
+            instance?.let { return it }
+
+            synchronized(lock) {
+                instance?.let { return it }
+
+                return DogRepository().also { instance = it }
+            }
         }
     }
 }

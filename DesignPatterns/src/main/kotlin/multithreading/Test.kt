@@ -4,30 +4,33 @@ import kotlin.concurrent.thread
 import kotlin.random.Random
 
 fun main() {
-//    thread { // (object: Runnable { override fun run()})
-//        repeat(100_000) {
-//            print(" 0 ")
-//        }
-//    }
+    val counter = Counter()
 
-    print("Enter the number from 1 to 1000_000_000: ")
-    val userNumber = readln().toInt()
-    var check = true
-    thread {
-       while (true) {
-           val computerNumber = Random.nextInt(1_000_000_001)
-           if (userNumber == computerNumber) {
-               println("I win. Your number is: $computerNumber")
-               check = false
-               break
-           }
-       }
+    val thread1 = thread {
+        repeat(1_000_000) {
+            counter.increment()
+        }
     }
-    thread {
-        var second = 1
-        while (check) {
-            println(second++)
-            Thread.sleep(1000)
+
+    val thread2 = thread {
+        repeat(1_000_000) {
+            counter.increment()
+        }
+    }
+
+    thread1.join()
+    thread2.join()
+
+    println(counter.number)
+}
+
+class Counter {
+    private val lock = Any()
+    var number = 0
+
+    fun increment() {
+        synchronized(lock) {
+            number++
         }
     }
 }
