@@ -6,14 +6,16 @@ import java.awt.Insets
 import javax.swing.JFrame
 import javax.swing.JScrollPane
 import javax.swing.JTextArea
+import kotlin.concurrent.thread
 
 class Display {
+
+    private val textArea = JTextArea().apply {
+        isEditable = false
+        font = Font(Font.SANS_SERIF, Font.PLAIN, 16)
+        margin = Insets(32,32,32,32)
+    }
     fun show() {
-        val textArea = JTextArea().apply {
-            isEditable = false
-            font = Font(Font.SANS_SERIF, Font.PLAIN, 16)
-            margin = Insets(32,32,32,32)
-        }
         val scroll = JScrollPane(textArea)
 
         JFrame().apply {
@@ -22,8 +24,11 @@ class Display {
             add(scroll)
         }
 
-        UserRepository.getInstance("qwerty")
-            .users
+        UserRepository.getInstance("qwerty").addListener(this)
+    }
+
+    fun onChanged(users: List<User>) {
+        users
             .joinToString("\n")  // same: stringbuilder and for in
             .let {
                 textArea.text = it

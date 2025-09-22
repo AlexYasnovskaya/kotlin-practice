@@ -1,10 +1,1 @@
-[{"id":1,"last_name":"Bleibaum","first_name":"Dredi","age":63},
-{"id":2,"last_name":"Storkes","first_name":"Dilly","age":82},
-{"id":3,"last_name":"Bradburne","first_name":"Cindi","age":21},
-{"id":4,"last_name":"Basketfield","first_name":"Elvera","age":28},
-{"id":5,"last_name":"Bruckent","first_name":"Fransisco","age":40},
-{"id":6,"last_name":"Durdan","first_name":"Morganne","age":22},
-{"id":7,"last_name":"Packham","first_name":"Idalia","age":78},
-{"id":8,"last_name":"Capron","first_name":"Dinnie","age":82},
-{"id":9,"last_name":"Cockshutt","first_name":"Faythe","age":59},
-{"id":10,"last_name":"Stovell","first_name":"Jeniffer","age":38}]
+[{"id":1,"age":63,"first_name":"Dredi","last_name":"Bleibaum"},{"id":2,"age":82,"first_name":"Dilly","last_name":"Storkes"},{"id":3,"age":21,"first_name":"Cindi","last_name":"Bradburne"},{"id":4,"age":28,"first_name":"Elvera","last_name":"Basketfield"},{"id":5,"age":40,"first_name":"Fransisco","last_name":"Bruckent"},{"id":6,"age":22,"first_name":"Morganne","last_name":"Durdan"},{"id":7,"age":78,"first_name":"Idalia","last_name":"Packham"},{"id":8,"age":82,"first_name":"Dinnie","last_name":"Capron"},{"id":9,"age":59,"first_name":"Faythe","last_name":"Cockshutt"},{"id":10,"age":38,"first_name":"Jeniffer","last_name":"Stovell"}]

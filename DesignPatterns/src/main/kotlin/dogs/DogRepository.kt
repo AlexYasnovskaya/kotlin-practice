@@ -5,6 +5,7 @@ import java.io.File
 
 class DogRepository private constructor(){
     private val file = File("dogs.json")
+    private val observers = mutableListOf<Display>()
 
     private val _dogs: MutableList<Dog> = loadDogs()
 
@@ -12,6 +13,30 @@ class DogRepository private constructor(){
         get() = _dogs.toList()
     private fun loadDogs(): MutableList<Dog> = Json.decodeFromString(file.readText().trim())
 
+    fun notifyObservers() {
+        for (observer in observers) {
+            observer.onChanged(_dogs)
+        }
+    }
+    fun registerObserver(observer: Display) {
+        observers.add(observer)
+        observer.onChanged(_dogs)
+    }
+
+    fun addDog(breedName: String, dogName: String, weight: Double) {
+        val id = _dogs.maxOf { it.id } + 1
+        _dogs.add(Dog(id, breedName, dogName, weight))
+
+    }
+
+    fun removeDog(id: Int) {
+        _dogs.removeIf { it.id == id }
+    }
+
+    fun saveChanges() {
+        val content = Json.encodeToString(_dogs)
+        file.writeText(content)
+    }
     companion object {
         private val lock = Any()
         private var instance: DogRepository? = null

@@ -6,12 +6,41 @@ import java.io.File
 class UserRepository private constructor(){
 
     private val file = File("users.json")
+    private val observers = mutableListOf<Display>()
 
     private val _users: MutableList<User> = loadAllUsers()
     val users
         get() = _users.toList()
 
     private fun loadAllUsers(): MutableList<User> = Json.decodeFromString(file.readText().trim())
+
+    private fun notifyObservers() {
+        for (observer in observers) {
+            observer.onChanged(users)
+        }
+    }
+
+    fun addListener(observer: Display) {
+        observers.add(observer)
+        observer.onChanged(users)
+    }
+
+    fun addUser(firstName: String, lastName: String, age: Int) {
+        val id = users.maxOf { it.id } + 1
+        _users.add(User(id = id, firstName = firstName, lastName = lastName, age = age))
+        notifyObservers()
+    }
+
+    fun deleteUser(id: Int) {
+        _users.removeIf { it.id == id }
+        notifyObservers()
+    }
+
+    fun saveChanges() {
+        val content = Json.encodeToString(_users)
+        file.writeText(content)
+        notifyObservers()
+    }
 
     companion object {
         private val lock = Any()
