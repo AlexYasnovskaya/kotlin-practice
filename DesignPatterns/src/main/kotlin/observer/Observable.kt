@@ -1,7 +1,7 @@
 package observer
 
 interface Observable<T> {
-    val currentCollection: T
+    val currentValue: T
 
 //    fun getObservers(): List<Observer<T>>
     val observers: List<Observer<T>>
@@ -10,8 +10,9 @@ interface Observable<T> {
     fun unregisterObserver(observer: Observer<T>)
 
     fun notifyObservers() {
+
         for (observer in observers) {
-            observer.onChanged(currentCollection)
+            observer.onChanged(currentValue)
         }
     }
 }

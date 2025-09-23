@@ -1,52 +1,39 @@
 package users
 
-import observer.Observer
 import kotlinx.serialization.json.Json
-import observer.Observable
+import observer.MutableObservable
 import java.io.File
 
-class UserRepository private constructor(): Observable<List<User>> {
+class UserRepository private constructor() {
 
     private val file = File("users.json")
-
-    private val _observers = mutableListOf<Observer<List<User>>>()
-    override val observers
-        get() = _observers.toList()
-
     private val _users: MutableList<User> = loadAllUsers()
-    override val currentCollection: List<User>
-        get() = _users.toList()
-
+    val users = MutableObservable(_users.toList())
+    val oldestUser = MutableObservable(_users.maxBy { it.age })
     private fun loadAllUsers(): MutableList<User> = Json.decodeFromString(file.readText().trim())
 
-    override fun registerObserver(observer: Observer<List<User>>) {
-        _observers.add(observer)
-        observer.onChanged(currentCollection)
-    }
-
-    override fun unregisterObserver(observer: Observer<List<User>>) {
-        _observers.remove(observer)
-    }
-
-    fun addOnUsersChangedListener(observer: Observer<List<User>>) {
-        registerObserver(observer)
-    }
-
     fun addUser(firstName: String, lastName: String, age: Int) {
-        val id = currentCollection.maxOf { it.id } + 1
-        _users.add(User(id = id, firstName = firstName, lastName = lastName, age = age))
-        notifyObservers()
+        val id = _users.maxOf { it.id } + 1
+        val user = User(id = id, firstName = firstName, lastName = lastName, age = age)
+        _users.add(user)
+        users.currentValue = _users.toList()
+        if (age > oldestUser.currentValue.age) {
+            oldestUser.currentValue = user
+        }
     }
 
     fun deleteUser(id: Int) {
         _users.removeIf { it.id == id }
-        notifyObservers()
+        users.currentValue = _users.toList()
+        val newOldest = _users.maxBy { it.age }
+        if (newOldest != oldestUser.currentValue) {
+            oldestUser.currentValue = newOldest
+        }
     }
 
     fun saveChanges() {
         val content = Json.encodeToString(_users)
         file.writeText(content)
-        notifyObservers()
     }
 
     companion object {

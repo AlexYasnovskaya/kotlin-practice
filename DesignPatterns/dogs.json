@@ -1,10 +1,1 @@
-[{"id":1,"breed_name":"German Shepherd","dog_name":"Helyn","weight":105.58},
-{"id":2,"breed_name":"Bulldog","dog_name":"Torrin","weight":166.34},
-{"id":3,"breed_name":"Labrador Retriever","dog_name":"Ira","weight":188.31},
-{"id":4,"breed_name":"German Shepherd","dog_name":"Tad","weight":137.38},
-{"id":5,"breed_name":"Golden Retriever","dog_name":"Kinny","weight":51.05},
-{"id":6,"breed_name":"Golden Retriever","dog_name":"Braden","weight":73.22},
-{"id":7,"breed_name":"German Shepherd","dog_name":"Garwood","weight":86.03},
-{"id":8,"breed_name":"Bulldog","dog_name":"Lettie","weight":171.93},
-{"id":9,"breed_name":"Poodle","dog_name":"Raleigh","weight":102.2},
-{"id":10,"breed_name":"Bulldog","dog_name":"Cletus","weight":197.02}]
+[{"id":1,"breed_name":"German Shepherd","dog_name":"Helyn","weight":105.58},{"id":2,"breed_name":"Bulldog","dog_name":"Torrin","weight":166.34},{"id":3,"breed_name":"Labrador Retriever","dog_name":"Ira","weight":188.31},{"id":4,"breed_name":"German Shepherd","dog_name":"Tad","weight":137.38},{"id":5,"breed_name":"Golden Retriever","dog_name":"Kinny","weight":51.05},{"id":6,"breed_name":"Golden Retriever","dog_name":"Braden","weight":73.22},{"id":7,"breed_name":"German Shepherd","dog_name":"Garwood","weight":86.03},{"id":8,"breed_name":"Bulldog","dog_name":"Lettie","weight":171.93},{"id":9,"breed_name":"Poodle","dog_name":"Raleigh","weight":102.2}]

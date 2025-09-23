@@ -24,7 +24,7 @@ class Display {
             add(scroll)
         }
 
-        UserRepository.getInstance("qwerty").addOnUsersChangedListener {  // anonymous obj
+        UserRepository.getInstance("qwerty").users.registerObserver {  // anonymous obj
             textArea.text = it.joinToString("\n")
         }
     }
