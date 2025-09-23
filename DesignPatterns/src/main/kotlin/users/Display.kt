@@ -24,10 +24,8 @@ class Display {
             add(scroll)
         }
 
-        UserRepository.getInstance("qwerty").addListener(object: Observer<List<User>> { // anonymous obj
-            override fun onChanged(collection: List<User>) {
-                textArea.text = collection.joinToString("\n")
-            }
-        })
+        UserRepository.getInstance("qwerty").addOnUsersChangedListener {  // anonymous obj
+            textArea.text = it.joinToString("\n")
+        }
     }
 }

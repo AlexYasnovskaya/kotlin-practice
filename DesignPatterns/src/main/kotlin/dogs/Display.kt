@@ -24,10 +24,8 @@ class Display {
             add(scroll)
         }
 
-        DogRepository.getInstance("qwerty").registerObserver(object: Observer<List<Dog>> {
-            override fun onChanged(collection: List<Dog>) {
-                textArea.text = collection.joinToString("\n")
-            }
-        })
+        DogRepository.getInstance("qwerty").addOnDogsChangedListener {
+            textArea.text = it.joinToString("\n")
+        }
     }
 }

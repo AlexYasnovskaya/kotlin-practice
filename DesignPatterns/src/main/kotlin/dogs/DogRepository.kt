@@ -2,36 +2,43 @@ package dogs
 
 import observer.Observer
 import kotlinx.serialization.json.Json
+import observer.Observable
 import java.io.File
 
-class DogRepository private constructor(){
+class DogRepository private constructor(): Observable<List<Dog>> {
     private val file = File("dogs.json")
-    private val observers = mutableListOf<Observer<List<Dog>>>()
+    private val _observers = mutableListOf<Observer<List<Dog>>>()
+
+    override val observers: List<Observer<List<Dog>>>
+        get() = _observers.toList()
 
     private val _dogs: MutableList<Dog> = loadDogs()
-
-    val dogs
+    override val currentCollection: List<Dog>
         get() = _dogs.toList()
+
     private fun loadDogs(): MutableList<Dog> = Json.decodeFromString(file.readText().trim())
 
-    fun notifyObservers() {
-        for (observer in observers) {
-            observer.onChanged(_dogs)
-        }
+    override fun registerObserver(observer: Observer<List<Dog>>) {
+        _observers.add(observer)
+        observer.onChanged(currentCollection)
     }
-    fun registerObserver(observer: Observer<List<Dog>>) {
-        observers.add(observer)
-        observer.onChanged(_dogs)
+    fun addOnDogsChangedListener(observer: Observer<List<Dog>>) {
+        registerObserver(observer)
+    }
+
+    override fun unregisterObserver(observer: Observer<List<Dog>>) {
+        _observers.remove(observer)
     }
 
     fun addDog(breedName: String, dogName: String, weight: Double) {
         val id = _dogs.maxOf { it.id } + 1
         _dogs.add(Dog(id, breedName, dogName, weight))
-
+        notifyObservers()
     }
 
     fun removeDog(id: Int) {
         _dogs.removeIf { it.id == id }
+        notifyObservers()
     }
 
     fun saveChanges() {

@@ -6,22 +6,24 @@ class Administrator {
     private val repository = UserRepository.getInstance("qwerty")
 
     fun work() {
-        print("Enter the operation code: ")
-        val operations = Operations.entries
-        for((ind, operation) in operations.withIndex()) {
-            print("$ind - ${operation.title}; ")
-        }
-        print("\n")
-        val code = readln().toInt()
-        val operation = operations[code]
-
-        when(operation) {
-            Operations.EXIT -> {
-                repository.saveChanges()
-                exitProcess(0)
+        while (true) {
+            print("Enter the operation code: ")
+            val operations = Operations.entries
+            for((ind, operation) in operations.withIndex()) {
+                print("$ind - ${operation.title}; ")
             }
-            Operations.ADD_NEW_USER -> addUser()
-            Operations.DELETE_USER -> deleteUser()
+            print("\n")
+            val code = readln().toInt()
+            val operation = operations[code]
+
+            when(operation) {
+                Operations.EXIT -> {
+                    repository.saveChanges()
+                    exitProcess(0)
+                }
+                Operations.ADD_NEW_USER -> addUser()
+                Operations.DELETE_USER -> deleteUser()
+            }
         }
     }
 
