@@ -1,12 +1,27 @@
 package users
 
+import command.Command
 import kotlinx.serialization.json.Json
 import observer.MutableObservable
 import observer.Observable
 import java.io.File
+import kotlin.concurrent.thread
 
 class UserRepository private constructor() {
 
+    private val commands = mutableListOf<Command>()
+
+    init {
+        thread {
+            while (true) {
+                if (commands.isNotEmpty()) {
+                    val command = commands.first()
+                    command.execute()
+                    commands.remove(command)
+                }
+            }
+        }
+    }
     private val file = File("users.json")
     private val usersList: MutableList<User> = loadAllUsers()
     private val _users = MutableObservable(usersList.toList())
@@ -15,6 +30,10 @@ class UserRepository private constructor() {
     private val _oldestUser = MutableObservable(usersList.maxBy { it.age })
     val oldestUser: Observable<User>
         get() = _oldestUser
+
+    fun addCommand(command: Command) {
+        commands.add(command)
+    }
     private fun loadAllUsers(): MutableList<User> = Json.decodeFromString(file.readText().trim())
 
     fun addUser(firstName: String, lastName: String, age: Int) {
