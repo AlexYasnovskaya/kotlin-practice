@@ -5,7 +5,7 @@ import command.Invoker
 import java.util.concurrent.LinkedBlockingDeque
 import kotlin.concurrent.thread
 
-object UsersInvoker: Invoker {
+object UsersInvoker: Invoker<AdministratorCommands> {
     private val commands = LinkedBlockingDeque<Command>()
 
     init {
@@ -20,7 +20,7 @@ object UsersInvoker: Invoker {
         }
     }
 
-    override fun addCommand(command: Command) {
+    override fun addCommand(command: AdministratorCommands) {
         println("new command: $command")
         commands.add(command)
     }
