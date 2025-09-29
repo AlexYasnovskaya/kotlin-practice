@@ -1,6 +1,5 @@
 package users
 
-import observer.Observer
 import java.awt.Dimension
 import java.awt.Font
 import java.awt.Insets
@@ -24,7 +23,7 @@ class Display {
             add(scroll)
         }
 
-        UserRepository.getInstance("qwerty").users.registerObserver {  // anonymous obj
+        UserRepository.getInstance("qwerty")._users.registerObserver {  // anonymous obj
             textArea.text = it.joinToString("\n")
         }
     }
