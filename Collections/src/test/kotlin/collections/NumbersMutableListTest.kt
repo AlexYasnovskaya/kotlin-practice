@@ -3,7 +3,6 @@ package collections
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 import kotlin.test.assertEquals
-import kotlin.test.assertFails
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
@@ -23,7 +22,7 @@ class NumbersMutableListTest {
             list.add(it)
         }
         list.add(0, 1000)
-        assertEquals(1000, list.get(0))
+        assertEquals(1000, list[0])
     }
 
     @ParameterizedTest
@@ -33,7 +32,7 @@ class NumbersMutableListTest {
             list.add(it)
         }
         list.add(100, 1000)
-        assertEquals(1000, list.get(100))
+        assertEquals(1000, list[100])
     }
 
     @ParameterizedTest
@@ -60,7 +59,7 @@ class NumbersMutableListTest {
         repeat(10) {
             list.add(it)
         }
-        assertEquals(5, list.get(5))
+        assertEquals(5, list[5])
     }
 
     @ParameterizedTest
@@ -69,7 +68,7 @@ class NumbersMutableListTest {
         repeat(100) {
             list.add(it)
         }
-        assertEquals(50, list.get(50))
+        assertEquals(50, list[50])
     }
 
     @ParameterizedTest
@@ -89,7 +88,7 @@ class NumbersMutableListTest {
             list.add(it)
         }
         list.removeAt(4)
-        assertEquals(5, list.get(4))
+        assertEquals(5, list[4])
     }
 
     @ParameterizedTest
@@ -99,7 +98,7 @@ class NumbersMutableListTest {
             list.add(it)
         }
         list.remove(4)
-        assertEquals(5, list.get(4))
+        assertEquals(5, list[4])
     }
 
     @ParameterizedTest

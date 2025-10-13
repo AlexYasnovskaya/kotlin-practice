@@ -2,7 +2,7 @@ package collections
 
 class NumbersArrayList : NumbersMutableList {
 
-    private var numbers = arrayOfNulls<Int>(10)
+    private var numbers = arrayOfNulls<Int>(INITIAL_CAPACITY)
 
     override var size: Int = 0
         private set
@@ -61,7 +61,7 @@ class NumbersArrayList : NumbersMutableList {
     }
 
     override fun clear() {
-        numbers = arrayOfNulls(10)
+        numbers = arrayOfNulls(INITIAL_CAPACITY)
         size = 0
     }
 
@@ -71,5 +71,9 @@ class NumbersArrayList : NumbersMutableList {
                 return true
         }
         return false
+    }
+
+    companion object {
+        private const val INITIAL_CAPACITY = 10
     }
 }
