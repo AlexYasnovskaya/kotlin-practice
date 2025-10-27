@@ -138,8 +138,8 @@ class MyLinkedList<T> : MyMutableList<T> {
         return false
     }
 
-    override fun iterator(): Iterator<T> {
-        return object : Iterator<T> {
+    override fun iterator(): MutableIterator<T> {
+        return object : MutableIterator<T> {
             private var nextNode = first
             private var currentModCount = modCount
 
@@ -152,6 +152,10 @@ class MyLinkedList<T> : MyMutableList<T> {
                 return nextNode?.item!!.also {
                     nextNode = nextNode?.next
                 }
+            }
+
+            override fun remove() {
+                TODO("Not yet implemented")
             }
         }
     }

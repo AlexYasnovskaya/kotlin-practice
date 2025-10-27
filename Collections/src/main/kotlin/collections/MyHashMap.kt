@@ -1,10 +1,13 @@
 package collections
 
+import kotlin.collections.get
 import kotlin.math.abs
 
 class MyHashMap<K, V> : MyMutableMap<K, V> {
     override var size: Int = 0
         private set
+
+    private var modCount = 0
 
     private var elements = arrayOfNulls<Node<K, V>>(INITIAL_CAPACITY)
 
@@ -25,6 +28,7 @@ class MyHashMap<K, V> : MyMutableMap<K, V> {
     }
 
     override fun put(key: K, value: V): V? {
+        modCount++
         if (size >= elements.size * LOAD_FACTORY) {
             increaseArray()
         }
@@ -34,6 +38,7 @@ class MyHashMap<K, V> : MyMutableMap<K, V> {
     }
 
     private fun put(key: K, value: V, array: Array<Node<K, V>?>): V? {
+        modCount++
         val newElement = Node(key, value)
         val position = getElementPosition(key, array.size)
         var existedElement = array[position]
@@ -61,6 +66,7 @@ class MyHashMap<K, V> : MyMutableMap<K, V> {
     }
 
     override fun remove(key: K): V? {
+        modCount++
         val position = getElementPosition(key, elements.size)
         val existedElement = elements[position] ?: return null
         if (existedElement.key == key) {
@@ -84,6 +90,7 @@ class MyHashMap<K, V> : MyMutableMap<K, V> {
     }
 
     override fun clear() {
+        modCount++
         elements = arrayOfNulls<Node<K, V>>(INITIAL_CAPACITY)
         size = 0
     }
@@ -141,6 +148,34 @@ class MyHashMap<K, V> : MyMutableMap<K, V> {
         }
         return null
     }
+
+    fun keyIterator(): MutableIterator<K> {
+        return object : MutableIterator<K> {
+            private var nodeIndex = 0
+            private var nextNode = elements[nodeIndex]
+            private var nextIndex = 0
+            private var currentModCount = modCount
+
+            override fun hasNext(): Boolean {
+                return nextIndex < size
+            }
+
+            override fun next(): K {
+                if (currentModCount != modCount) throw ConcurrentModificationException()
+                while (nextNode == null) {
+                    nextNode = elements[++nodeIndex]
+                }
+                return nextNode?.key!!.also {
+                    nextIndex++
+                    nextNode = nextNode?.next
+                }
+            }
+
+            override fun remove() {
+                TODO("Not yet implemented")
+            }
+        }
+}
 
     data class Node<K, V> (
         val key: K,
