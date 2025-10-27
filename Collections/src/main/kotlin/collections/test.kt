@@ -1,9 +1,9 @@
 package collections
 
 fun main() {
-    val numbers = mutableListOf<Int>()
+    val numbers = sortedSetOf<String>()
     repeat(100) {
-        numbers.add(it)
+        numbers.add("Number: $it")
     }
     for(number in numbers) {
         println(number)
