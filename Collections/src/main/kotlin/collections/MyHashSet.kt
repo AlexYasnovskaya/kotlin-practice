@@ -2,11 +2,12 @@ package collections
 
 import kotlin.math.abs
 
-class NumbersHashSet<T> : NumbersMutableSet<T> {
+class MyHashSet<T> : MyMutableSet<T> {
     override var size: Int = 0
         private set
 
     private var elements = arrayOfNulls<Node<T>>(INITIAL_CAPACITY)
+    private var modCount = 0
 
     private fun getElementPosition(number: T, arraySize: Int): Int {
         return abs(number.hashCode() % arraySize)
@@ -30,6 +31,7 @@ class NumbersHashSet<T> : NumbersMutableSet<T> {
         }
         return add(element, elements).also { added ->
             if (added) size++
+            modCount++
         }
     }
 
@@ -39,12 +41,14 @@ class NumbersHashSet<T> : NumbersMutableSet<T> {
         var existedElement = array[position]
         if (existedElement == null) {
             array[position] = node
+            modCount++
             return true
         } else {
             while (true) {
                 if (existedElement?.item == element) return false
                 else {
                     if (existedElement?.next == null) {
+                        modCount++
                         existedElement?.next = node
                         size++
                         return true
@@ -57,6 +61,7 @@ class NumbersHashSet<T> : NumbersMutableSet<T> {
     }
 
     override fun remove(element: T) {
+        modCount++
         val position = getElementPosition(element, elements.size)
         val existedElement = elements[position] ?: return
         if (existedElement.item == element) {
@@ -79,6 +84,7 @@ class NumbersHashSet<T> : NumbersMutableSet<T> {
     }
 
     override fun clear() {
+        modCount++
         elements = arrayOfNulls<Node<T>>(INITIAL_CAPACITY)
         size = 0
     }
@@ -93,6 +99,30 @@ class NumbersHashSet<T> : NumbersMutableSet<T> {
             }
         }
         return false
+    }
+
+    override fun iterator(): Iterator<T> {
+        return object : Iterator<T> {
+            private var nodeIndex = 0
+            private var nextNode = elements[nodeIndex]
+            private var nextIndex = 0
+            private var currentModCount = modCount
+
+            override fun hasNext(): Boolean {
+                return nextIndex < size
+            }
+
+            override fun next(): T {
+                if (currentModCount != modCount) throw ConcurrentModificationException()
+                while (nextNode == null) {
+                    nextNode = elements[++nodeIndex]
+                }
+                return nextNode?.item!!.also {
+                    nextIndex++
+                    nextNode = nextNode?.next
+                }
+            }
+        }
     }
 
     data class Node<T> (

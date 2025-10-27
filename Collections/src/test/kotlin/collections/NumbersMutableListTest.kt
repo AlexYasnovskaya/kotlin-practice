@@ -11,14 +11,14 @@ class NumbersMutableListTest {
 
     @ParameterizedTest
     @MethodSource("mutableListSource")
-    fun `when add 1 element then size is 1`(list: NumbersMutableList) {
+    fun `when add 1 element then size is 1`(list: MyMutableList<Int>) {
         list.add(0)
         assertEquals(1, list.size)
     }
 
     @ParameterizedTest
     @MethodSource("mutableListSource")
-    fun `when element added to first position then it is in first position`(list: NumbersMutableList) {
+    fun `when element added to first position then it is in first position`(list: MyMutableList<Int>) {
         repeat(100) {
             list.add(it)
         }
@@ -28,7 +28,7 @@ class NumbersMutableListTest {
 
     @ParameterizedTest
     @MethodSource("mutableListSource")
-    fun `when element added to last position then it is in last position`(list: NumbersMutableList) {
+    fun `when element added to last position then it is in last position`(list: MyMutableList<Int>) {
         repeat(100) {
             list.add(it)
         }
@@ -38,7 +38,7 @@ class NumbersMutableListTest {
 
     @ParameterizedTest
     @MethodSource("mutableListSource")
-    fun `when add 10 element then size is 10`(list: NumbersMutableList) {
+    fun `when add 10 element then size is 10`(list: MyMutableList<Int>) {
         repeat(10) {
             list.add(it)
         }
@@ -47,7 +47,7 @@ class NumbersMutableListTest {
 
     @ParameterizedTest
     @MethodSource("mutableListSource")
-    fun `when add 100 element then size is 100`(list: NumbersMutableList) {
+    fun `when add 100 element then size is 100`(list: MyMutableList<Int>) {
         repeat(100) {
             list.add(it)
         }
@@ -56,7 +56,7 @@ class NumbersMutableListTest {
 
     @ParameterizedTest
     @MethodSource("mutableListSource")
-    fun `when get 5 element from collection then result is correct`(list: NumbersMutableList) {
+    fun `when get 5 element from collection then result is correct`(list: MyMutableList<Int>) {
         repeat(10) {
             list.add(it)
         }
@@ -65,7 +65,7 @@ class NumbersMutableListTest {
 
     @ParameterizedTest
     @MethodSource("mutableListSource")
-    fun `when get 50 element from collection then result is correct`(list: NumbersMutableList) {
+    fun `when get 50 element from collection then result is correct`(list: MyMutableList<Int>) {
         repeat(100) {
             list.add(it)
         }
@@ -74,7 +74,7 @@ class NumbersMutableListTest {
 
     @ParameterizedTest
     @MethodSource("mutableListSource")
-    fun `when element removed then size decreased`(list: NumbersMutableList) {
+    fun `when element removed then size decreased`(list: MyMutableList<Int>) {
         repeat(10) {
             list.add(it)
         }
@@ -84,7 +84,7 @@ class NumbersMutableListTest {
 
     @ParameterizedTest
     @MethodSource("mutableListSource")
-    fun `when 4th element removed then next value at this position`(list: NumbersMutableList) {
+    fun `when 4th element removed then next value at this position`(list: MyMutableList<Int>) {
         repeat(10) {
             list.add(it)
         }
@@ -94,7 +94,7 @@ class NumbersMutableListTest {
 
     @ParameterizedTest
     @MethodSource("mutableListSource")
-    fun `when value 4 removed then next value at this position`(list: NumbersMutableList) {
+    fun `when value 4 removed then next value at this position`(list: MyMutableList<Int>) {
         repeat(10) {
             list.add(it)
         }
@@ -104,7 +104,7 @@ class NumbersMutableListTest {
 
     @ParameterizedTest
     @MethodSource("mutableListSource")
-    fun `when list is cleared then size is 0`(list: NumbersMutableList) {
+    fun `when list is cleared then size is 0`(list: MyMutableList<Int>) {
         repeat(10) {
             list.add(it)
         }
@@ -114,7 +114,7 @@ class NumbersMutableListTest {
 
     @ParameterizedTest
     @MethodSource("mutableListSource")
-    fun `when list contains element then method return true`(list: NumbersMutableList) {
+    fun `when list contains element then method return true`(list: MyMutableList<Int>) {
         repeat(10) {
             list.add(it)
         }
@@ -123,7 +123,7 @@ class NumbersMutableListTest {
 
     @ParameterizedTest
     @MethodSource("mutableListSource")
-    fun `when list doesnt contains element then method return false`(list: NumbersMutableList) {
+    fun `when list doesnt contains element then method return false`(list: MyMutableList<Int>) {
         repeat(10) {
             list.add(it)
         }
@@ -132,7 +132,7 @@ class NumbersMutableListTest {
 
     @ParameterizedTest
     @MethodSource("mutableListSource")
-    fun `when method get invoked with wrong index then throw exception`(list: NumbersMutableList) {
+    fun `when method get invoked with wrong index then throw exception`(list: MyMutableList<Int>) {
         repeat(10) {
             list.add(it)
         }
@@ -143,7 +143,7 @@ class NumbersMutableListTest {
 
     @ParameterizedTest
     @MethodSource("mutableListSource")
-    fun `when method get invoked with negative index then throw exception`(list: NumbersMutableList) {
+    fun `when method get invoked with negative index then throw exception`(list: MyMutableList<Int>) {
         repeat(10) {
             list.add(it)
         }
@@ -154,7 +154,7 @@ class NumbersMutableListTest {
 
     @ParameterizedTest
     @MethodSource("mutableListSource")
-    fun `when method add invoked with wrong index then throw exception`(list: NumbersMutableList) {
+    fun `when method add invoked with wrong index then throw exception`(list: MyMutableList<Int>) {
         repeat(10) {
             list.add(it)
         }
@@ -165,7 +165,7 @@ class NumbersMutableListTest {
 
     @ParameterizedTest
     @MethodSource("mutableListSource")
-    fun `when method add invoked with negative index then throw exception`(list: NumbersMutableList) {
+    fun `when method add invoked with negative index then throw exception`(list: MyMutableList<Int>) {
         repeat(10) {
             list.add(it)
         }
@@ -176,7 +176,7 @@ class NumbersMutableListTest {
 
     @ParameterizedTest
     @MethodSource("mutableListSource")
-    fun `when method remove invoked with wrong index then throw exception`(list: NumbersMutableList) {
+    fun `when method remove invoked with wrong index then throw exception`(list: MyMutableList<Int>) {
         repeat(10) {
             list.add(it)
         }
@@ -187,7 +187,7 @@ class NumbersMutableListTest {
 
     @ParameterizedTest
     @MethodSource("mutableListSource")
-    fun `when method remove invoked with negative index then throw exception`(list: NumbersMutableList) {
+    fun `when method remove invoked with negative index then throw exception`(list: MyMutableList<Int>) {
         repeat(10) {
             list.add(it)
         }
@@ -198,7 +198,7 @@ class NumbersMutableListTest {
 
     companion object {
         @JvmStatic
-        fun mutableListSource() = listOf(NumbersArrayList(), NumbersLinkedList())
+        fun mutableListSource() = listOf(MyArrayList<Int>(), MyLinkedList<Int>())
     }
 
 }

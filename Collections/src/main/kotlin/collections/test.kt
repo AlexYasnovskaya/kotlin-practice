@@ -1,15 +1,11 @@
 package collections
 
 fun main() {
-    val numbers = mutableListOf<Number>()
-
-    while (true) {
-        val number = readln().toInt()
-        if (number != 0) {
-            numbers.add(number)
-        } else {
-            break
-        }
+    val numbers = mutableListOf<Int>()
+    repeat(100) {
+        numbers.add(it)
     }
-    numbers.forEach(::println)
+    for(number in numbers) {
+        println(number)
+    }
 }

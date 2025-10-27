@@ -1,6 +1,6 @@
 package collections
 
-interface NumbersMutableSet<T> {
+interface MyMutableCollection<T>: Iterable<T> {
     val size: Int
     fun add(element: T): Boolean
     fun remove(element: T)
